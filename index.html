@@ -1,25 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Report</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/index.css">
-    <script defer src="./src/index.js"></script>
-    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Report</title>
+<link rel="stylesheet" href="styles/index.css">
+<script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script defer src="src/index.js"></script>
 </head>
+
 <body>
-    <header>
-        <h1>Weather Report</h1>
-    </header>
-    <main>
-        <h1 id="city-name">Seattle</h1>
-        <h2 id="temp">56</h2>
-        <div id="sky">🌧️</div>
-        <div id="landscape">🍃 🌪️ 🍂 🌰 🏮 🎃 🌬️</div>
-    </main>
+
+<header>
+	<h1>Weather Report</h1>
+</header>
+
+<main>
+	<section id="city-section">
+		<h2 id="city-name">Seattle</h2>
+	</section>
+	<section id="weather-container">
+		<div id="sky"></div>
+		<div id="landscape"></div>
+		<div id="temperature-container">
+			<h2 id="temperature">62°F</h2>
+			<button id="decrease-temperature">-</button>
+			<button id="increase-temperature">+</button>
+		</div>
+	</section>
+	<section id="rename-section">
+		<h3>Rename City</h3>
+		<input
+			type="text"
+			id="city-input"
+			placeholder="Enter city name">
+		<button id="rename-button">Rename</button>
+	</section>
+	<section id="current-weather-section">
+		<button id="get-weather-button">Get Current Weather</button>
+		<p id="error-message"></p>
+	</section>
+	<section id="sky-section">
+		<h3>Choose Sky Type</h3>
+		<select id="sky-select">
+			<option value="sunny">Sunny</option>
+			<option value="cloudy">Cloudy</option>
+			<option value="rainy">Rainy</option>
+			<option value="snowy">Snowy</option>
+		</select>
+	</section>
+	<section id="reset-section">
+		<button id="reset-city-button">Reset City</button>
+	</section>
+</main>
+<footer>
+	<p>Weather Report App</p>
+</footer>
 </body>
 </html>
