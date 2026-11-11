@@ -24,13 +24,31 @@ const syncDOM = () => {
 
 };
 
-const raiseTemp = () => {
 
-};
+// Starting temperature
+let temperature = 62;
 
-const lowerTemp = () => {
+// Select HTML elements
+const tempDisplay = document.querySelector("#temperature");
+const increaseButton = document.querySelector("#increase-temperature");
+const decreaseButton = document.querySelector("#decrease-temperature");
 
-};
+// Increase temperature
+function increaseTemperature() {
+    temperature++;
+    tempDisplay.textContent = `${temperature}°F`;
+}
+
+// Decrease temperature
+function decreaseTemperature() {
+    temperature--;
+    tempDisplay.textContent = `${temperature}°F`;
+}
+
+// Event listeners
+increaseButton.addEventListener("click", increaseTemperature);
+decreaseButton.addEventListener("click", decreaseTemperature);
+
 
 const queryWeatherData = (cityName) => {
 
