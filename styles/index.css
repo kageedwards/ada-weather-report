@@ -1,0 +1,142 @@
+
+/* General styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        #56b4eb,
+        #b5e5f7,
+        #dff5ff
+    );
+    color: #17324d;
+    text-align: center;
+}
+
+/* Header */
+header {
+    background: #07529b;
+    color: white;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 36px;
+    letter-spacing: 1px;
+}
+
+/* Main weather card */
+main {
+    width: 80%;
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 40px 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid white;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* City name */
+#city-name {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #123d68;
+}
+
+/* Temperature */
+#temp {
+    font-size: 90px;
+    color: #087eaa;
+    margin: 20px 0;
+}
+
+/* Sky */
+#sky {
+    font-size: 100px;
+    padding: 20px;
+}
+
+/* Landscape */
+#landscape {
+    background: linear-gradient(
+        to bottom,
+        #8dd8f5,
+        #72bd70,
+        #39964c
+    );
+    border-radius: 20px;
+    padding: 50px 15px;
+    font-size: 45px;
+    margin-top: 20px;
+}
+
+/* Buttons - for upcoming waves */
+button {
+    background: #0878c9;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #07529b;
+}
+
+/* Input and dropdown - for upcoming waves */
+input,
+select {
+    padding: 12px;
+    border: 2px solid #b4c5d6;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    margin: 10px;
+}
+
+/* Footer */
+footer {
+    background: #07529b;
+    color: white;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+/* Mobile responsive design */
+@media (max-width: 600px) {
+    main {
+        width: 92%;
+        padding: 25px 15px;
+        margin: 25px auto;
+    }
+
+    #city-name {
+        font-size: 32px;
+    }
+
+    #temp {
+        font-size: 65px;
+    }
+
+    #sky {
+        font-size: 75px;
+    }
+
+    #landscape {
+        font-size: 30px;
+        padding: 35px 10px;
+    }
+}
