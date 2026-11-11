@@ -50,6 +50,39 @@ increaseButton.addEventListener("click", increaseTemperature);
 decreaseButton.addEventListener("click", decreaseTemperature);
 
 
+// Select city HTML elements
+const cityInput = document.querySelector("#city-input");
+const selectButton = document.querySelector("#select-button");
+const cityName = document.querySelector("#city-name");
+const errorMessage = document.querySelector("#error-message");
+
+// Function to select a city
+function selectCity() {
+
+    // Get the city entered by the user
+    const newCity = cityInput.value.trim();
+
+    // Check if input is empty
+    if (newCity === "") {
+        errorMessage.textContent = "Please enter a city name!";
+        return;
+    }
+
+    // Update city name
+    cityName.textContent = newCity;
+
+    // Clear error message
+    errorMessage.textContent = "";
+
+    // Clear input field
+    cityInput.value = "";
+}
+
+// Listen for button click
+selectButton.addEventListener("click", selectCity);
+
+
+
 const queryWeatherData = (cityName) => {
 
 };
