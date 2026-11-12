@@ -24,10 +24,15 @@ const defaultCity = 'Seattle';
 //landscaping
 const landscapeDisplay = document.querySelector("#landscape");
 
+//sky
+const skyDisplay = document.querySelector('#sky');
+const skySelect = document.querySelector('#sky-select');
 
 const skies = [
-    // Skies will go here
-    // 'cloudy': 'cloud clouds',
+    "☁️ ☁️ ☁️ ☀️ ☁️ ☁️☁️ ☁️ ☁️ ",
+    "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️",
+    "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧",
+    "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨"
 ];
 
 const landscapes = [
@@ -119,6 +124,11 @@ const syncTempColour = () => {
     } 
 };
 
+const syncSky = () => {
+    skyDisplay.textContent = skies[state.sky];
+};
+
+
 const syncDOM = () => {
     cityInput.value = "";
     syncCityName();
@@ -126,6 +136,7 @@ const syncDOM = () => {
     syncWeatherButton();
     syncLandscape();
     syncTempColour();
+    syncSky();
 };
 
 
@@ -206,10 +217,18 @@ function resetCity() {
     queryWeatherData();
 }
 
+const selectSky = () => {
+    const selectedSky = skySelect.value;
+    const skyoptions = ["sunny","cloudy","rainy","snowy"];
+    state.sky = skyoptions.indexOf(selectedSky);
+    syncSky();
+};
+
 increaseButton.addEventListener("click", increaseTemperature);
 decreaseButton.addEventListener("click", decreaseTemperature);
 selectButton.addEventListener("click", selectCity);
 getWeatherButton.addEventListener("click", queryCityData);
 resetButton.addEventListener("click", resetCity);
+skySelect.addEventListener("change", selectSky);
 
 initialize();
