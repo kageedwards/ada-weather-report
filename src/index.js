@@ -19,7 +19,7 @@ const getWeatherButton = document.querySelector("#get-weather-button");
 //reset city
 const resetButton = document.querySelector("#reset-city-button");
 const defaultCity = 'Seattle';
-const defaultTemperature = 62;
+//const defaultTemperature = 62;
 
 const skies = [
     // Skies will go here
@@ -163,9 +163,16 @@ function selectCity() {
 
 function resetCity() {
     state.cityName= defaultCity;
-    cityName.textContent = defaultCity;
+    //state.temperature = defaultTemperature;
+    state.cityLocation = {
+        lat: 47.6088012,
+        lng: -122.4221973
+    };
+    state.invalidated = true;
+    //cityName.textContent = defaultCity;
     errorMessageBox.textContent = "";
     syncDOM();
+    queryWeatherData();
 }
 
 increaseButton.addEventListener("click", increaseTemperature);
