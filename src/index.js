@@ -77,7 +77,8 @@ const syncTemp = () => {
         tempDisplay.className = 'italic'
     } else {
         tempDisplay.className = ''
-    }
+    } 
+    
 };
 
 const syncWeatherButton = () => {
@@ -102,12 +103,29 @@ const syncLandscape = () => {
     landscapeDisplay.textContent = landscapes[state.landscape];   
 };
 
+const syncTempColour = () => {
+    const temp = state.temperature;
+    
+    if (temp >= 80) {
+        tempDisplay.className = "hot";
+    } else if (temp >= 70) {
+        tempDisplay.className = "warm";
+    } else if (temp >= 60) {
+        tempDisplay.className = "mild";
+    } else if (temp >= 50) {
+        tempDisplay.className = "cool";
+    } else {
+        tempDisplay.className = "cold";
+    } 
+};
+
 const syncDOM = () => {
     cityInput.value = "";
     syncCityName();
     syncTemp();
     syncWeatherButton();
     syncLandscape();
+    syncTempColour();
 };
 
 

@@ -54,7 +54,7 @@ main {
 /* Temperature */
 #temperature {
     font-size: 90px;
-    color: #087eaa;
+    /*color: #087eaa;*/
     margin: 20px 0;
 }
 
@@ -64,6 +64,27 @@ main {
 
 .italic {
     font-style: italic;
+}
+
+/* Temperature colors */
+#temperature.hot {
+    color: red;
+}
+
+#temperature.warm {
+    color: orange;
+}
+
+#temperature.mild {
+    color: goldenrod;
+}
+
+#temperature.cool {
+    color: green;
+}
+
+#temperature.cold {
+    color: teal;
 }
 
 /* Sky */
