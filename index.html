@@ -23,18 +23,18 @@
 	
 	<section id="weather-container">
 		<div id="temperature-container">
-			<h2>
-				<button id="decrease-temperature">&ndash;</button><span id="temperature">°F</span><button id="increase-temperature">+</button>
-			</h2>
+			<button id="decrease-temperature">&ndash;</button><span id="temperature"><span>62</span>&deg;<small>F</small></span><button id="increase-temperature">+</button>
 		</div>
 	</section>
-
-	<section>
+	<section id="current-weather-section">
+		<h3 id="weather-condition"></h3>
+		<div id="sky"><img src="" alt="" id="weather-icon"></div>
+		<button id="get-weather-button">Get Current Weather</button>
 		<div id="landscape"></div>
 	</section>
 	
 	<section id="rename-section">
-		<h3>Select City</h3>
+		<h3>Override City</h3>
 		<input
 			type="text"
 			id="city-input"
@@ -42,25 +42,15 @@
 		<button id="select-button">Select</button>
 		<p id="error-message"></p>
 	</section>
-
-	<section id="current-weather-section">
-		<button id="get-weather-button">Get Current Weather</button>
-	</section>
-
-	<section id="sky-section">
-		<h3>Choose Sky Type</h3>
+	<section id="sky-select-section">
+		<h3>Override Sky Type</h3>
 		<select id="sky-select">
-			<option value="sunny">Sunny</option>
-			<option value="cloudy">Cloudy</option>
+			<option value="clear">Sunny</option>
+			<option value="clouds">Cloudy</option>
 			<option value="rainy">Rainy</option>
 			<option value="snowy">Snowy</option>
 		</select>
 	</section>
-
-	<section>
-		<div id="sky"></div>
-	</section>
-	
 	<section id="reset-section">
 		<button id="reset-city-button">Reset</button>
 	</section>

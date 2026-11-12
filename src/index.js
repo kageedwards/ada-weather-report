@@ -3,21 +3,7 @@
 const API_PREFIX = 'https://ada-weather-report-proxy-server.onrender.com';
 const API_LOCATION_ENDPOINT = API_PREFIX + '/location';
 const API_WEATHER_ENDPOINT = API_PREFIX + '/weather';
-
-// Temperature
-const tempDisplay = document.querySelector("#temperature");
-const increaseButton = document.querySelector("#increase-temperature");
-const decreaseButton = document.querySelector("#decrease-temperature");
-
-// Select city 
-const cityInput = document.querySelector("#city-input");
-const selectButton = document.querySelector("#select-button");
-const cityName = document.querySelector("#city-name");
-const errorMessageBox = document.querySelector("#error-message");
-const getWeatherButton = document.querySelector("#get-weather-button");
-
-//reset city
-const resetButton = document.querySelector("#reset-city-button");
+const WEATHER_ICON_URL = 'https://openweathermap.org/payload/api/media/file/{code}.png';
 const defaultCity = 'Seattle';
 //const defaultTemperature = 62;
 
@@ -28,12 +14,40 @@ const landscapeDisplay = document.querySelector("#landscape");
 const skyDisplay = document.querySelector('#sky');
 const skySelect = document.querySelector('#sky-select');
 
-const skies = [
+const skyEmojis = [
     "☁️ ☁️ ☁️ ☀️ ☁️ ☁️☁️ ☁️ ☁️ ",
     "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️",
     "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧",
     "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨"
 ];
+// Select HTML elements
+const mainContainer = document.querySelector("main");
+const cityName = document.querySelector("#city-name");
+const weatherConditionText = document.querySelector("#weather-condition");
+const tempContainer = document.querySelector("#temperature-container");
+const tempDisplay = document.querySelector("#temperature");
+const tempValueDisplay = document.querySelector("#temperature span");
+const unitDisplay = document.querySelector("#temperature small");
+const increaseButton = document.querySelector("#increase-temperature");
+const decreaseButton = document.querySelector("#decrease-temperature");
+const skyView = document.querySelector("#sky");
+const weatherIcon = document.querySelector("#weather-icon");
+
+const cityInput = document.querySelector("#city-input");
+const selectButton = document.querySelector("#select-button");
+const errorMessageBox = document.querySelector("#error-message");
+const getWeatherButton = document.querySelector("#get-weather-button");
+const skySelectBox = document.querySelector("#sky-select");
+
+//reset city
+const resetButton = document.querySelector("#reset-city-button");
+
+const skies = {
+    'clear': '01d',
+    'clouds': '03d',
+    'rainy': '10d',
+    'snowy': '13d'
+};
 
 const landscapes = [
     "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂",
@@ -50,8 +64,10 @@ const state = {
         lng: -122.4221973
     },
     unit: 'F',
-    temperature: 62,
-    sky: 0,
+    temperature: '- ',
+    weatherCondition: '',
+    sky: '01d',
+    skyCategory: 'clear',
     landscape: 0,
     background: 0
 };
@@ -68,22 +84,29 @@ const convertTemperature = (value, unit) => {
 
 const syncCityName = () => {
     cityName.textContent = state.cityName;
+    weatherConditionText.textContent = state.weatherCondition;
     if (state.invalidated) {
-        cityName.className = 'italic'
+        cityName.className = 'invalidated'
     } else {
         cityName.className = ''
     }
 };
 
 const syncTemp = () => {
-    let temp = Math.round(Number.parseFloat(state.temperature));
-    tempDisplay.textContent = `${temp}°${state.unit}`;
+    let temp = Number.parseFloat(state.temperature);
+    temp = Math.round(convertTemperature(temp, state.unit));
+    tempValueDisplay.textContent = temp;
+    unitDisplay.textContent = state.unit;
+
+    tempContainer.animate([
+        {opacity: 0,},
+        {opacity: 1,}
+    ], 1000);
     if (state.invalidated) {
-        tempDisplay.className = 'italic'
+        tempContainer.className = 'invalidated'
     } else {
-        tempDisplay.className = ''
-    } 
-    
+        tempContainer.className = ''
+    }
 };
 
 const syncWeatherButton = () => {
@@ -95,7 +118,7 @@ const syncWeatherButton = () => {
 };
 
 const syncLandscape = () => {
-    const temp = state.temperature;
+    const temp = convertTemperature(state.temperature, 'F');
     if (temp >= 80){
         state.landscape = 0;
     } else if (temp >= 70){
@@ -109,25 +132,38 @@ const syncLandscape = () => {
 };
 
 const syncTempColour = () => {
-    const temp = state.temperature;
+    const temp = convertTemperature(state.temperature, 'F');
     
     if (temp >= 80) {
-        tempDisplay.className = "hot";
+        tempValueDisplay.className = "hot";
     } else if (temp >= 70) {
-        tempDisplay.className = "warm";
+        tempValueDisplay.className = "warm";
     } else if (temp >= 60) {
-        tempDisplay.className = "mild";
+        tempValueDisplay.className = "mild";
     } else if (temp >= 50) {
-        tempDisplay.className = "cool";
+        tempValueDisplay.className = "cool";
     } else {
-        tempDisplay.className = "cold";
+        tempValueDisplay.className = "cold";
     } 
 };
 
 const syncSky = () => {
-    skyDisplay.textContent = skies[state.sky];
-};
+    let weatherIconURL = WEATHER_ICON_URL.replace('{code}', encodeURIComponent(state.sky));
+    weatherIcon.setAttribute('src', weatherIconURL);
 
+    if (['clouds', 'rainy'].indexOf(state.skyCategory) >= 0) {
+        mainContainer.className = 'cloudy';
+    } else {
+        mainContainer.className = '';
+    }
+
+    if (state.invalidated) {
+        skyView.className = 'invalidated';
+        // weatherIcon.className = 'hidden';
+    } else {
+        skyView.className = '';
+    }
+};
 
 const syncDOM = () => {
     cityInput.value = "";
@@ -149,8 +185,11 @@ const queryWeatherData = (lat, lng) => {
     return axios.get(API_WEATHER_ENDPOINT, { params })
         .then((resp) => {
             console.log(resp);
-            state.temperature = convertTemperature(resp.data.main.temp, state.unit);
+            state.temperature = resp.data.main.temp;
             state.cityName = resp.data.name;
+            state.weatherCondition = resp.data.weather[0].description;
+            state.sky = resp.data.weather[0].icon;
+            state.skyCategory = resp.data.weather[0].main.toLowerCase();
             state.invalidated = false;
             syncDOM();
         });
@@ -188,6 +227,12 @@ const decreaseTemperature = () => {
     syncDOM();
 };
 
+const swapTemperatureUnit = (event) => {
+    event.preventDefault();
+    state.unit = (state.unit === 'F') ? 'C' : 'F';
+    syncDOM();
+}
+
 function selectCity() {
     const newCity = cityInput.value.trim();
 
@@ -218,17 +263,24 @@ function resetCity() {
 }
 
 const selectSky = () => {
-    const selectedSky = skySelect.value;
-    const skyoptions = ["sunny","cloudy","rainy","snowy"];
-    state.sky = skyoptions.indexOf(selectedSky);
-    syncSky();
-};
+    let inputSky = skySelectBox.value;
+    state.skyCategory = inputSky;
+    state.sky = skies[inputSky];
+    state.invalidated = true;
+    syncDOM();
+}
 
 increaseButton.addEventListener("click", increaseTemperature);
 decreaseButton.addEventListener("click", decreaseTemperature);
 selectButton.addEventListener("click", selectCity);
+cityInput.addEventListener("keydown", (event) => {
+    if (event.key === 'Enter') {
+        selectCity();
+    }
+});
 getWeatherButton.addEventListener("click", queryCityData);
 resetButton.addEventListener("click", resetCity);
-skySelect.addEventListener("change", selectSky);
+skySelectBox.addEventListener("change", selectSky);
+tempDisplay.addEventListener("mousedown", swapTemperatureUnit);
 
 initialize();

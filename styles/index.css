@@ -37,11 +37,40 @@ main {
     width: 80%;
     max-width: 850px;
     margin: 50px auto;
-    padding: 40px 25px;
+    padding: 0;
     background: rgba(255, 255, 255, 0.8);
     border: 2px solid white;
     border-radius: 25px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+main.cloudy {
+    background-color: #9ac;
+}
+
+#city-section, #rename-section,
+#sky-select-section, #reset-section {
+    padding-top: 40px;
+}
+
+#rename-section,
+#sky-select-section, #reset-section {
+    background-color: #087eaa;
+}
+
+#rename-section h3,
+#sky-select-section h3 {
+    color: #ffffff;
+}
+
+#rename-section button,
+#reset-section button {
+    filter: invert();
+}
+
+#reset-section {
+    padding-bottom: 40px;
 }
 
 /* City name */
@@ -58,32 +87,38 @@ main {
     margin: 20px 0;
 }
 
-#temperature-container {
-    vertical-align: center;
+#temperature small {
+    font-size: 0.35em;
+    margin: 0 0 0 -1em;
 }
 
-.italic {
+#temperature-container {
+    vertical-align: center;
+    transition: opacity 250ms ease;
+}
+
+.invalidated {
     font-style: italic;
 }
 
 /* Temperature colors */
-#temperature.hot {
+#temperature span.hot {
     color: red;
 }
 
-#temperature.warm {
+#temperature span.warm {
     color: orange;
 }
 
-#temperature.mild {
+#temperature span.mild {
     color: goldenrod;
 }
 
-#temperature.cool {
+#temperature span.cool {
     color: green;
 }
 
-#temperature.cold {
+#temperature span.cold {
     color: teal;
 }
 
@@ -97,11 +132,11 @@ main {
 #landscape {
     background: linear-gradient(
         to bottom,
-        #8dd8f5,
+        /* #8dd8f5, */
+        rgba(255,255,255,0),
         #72bd70,
         #39964c
     );
-    border-radius: 20px;
     padding: 50px 15px;
     font-size: 45px;
     margin-top: 20px;
