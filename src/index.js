@@ -4,12 +4,12 @@ const API_PREFIX = 'https://ada-weather-report-proxy-server.onrender.com';
 const API_LOCATION_ENDPOINT = API_PREFIX + '/location';
 const API_WEATHER_ENDPOINT = API_PREFIX + '/weather';
 
-// Select HTML elements
+// Temperature
 const tempDisplay = document.querySelector("#temperature");
 const increaseButton = document.querySelector("#increase-temperature");
 const decreaseButton = document.querySelector("#decrease-temperature");
 
-// Select city HTML elements
+// Select city 
 const cityInput = document.querySelector("#city-input");
 const selectButton = document.querySelector("#select-button");
 const cityName = document.querySelector("#city-name");
@@ -21,14 +21,20 @@ const resetButton = document.querySelector("#reset-city-button");
 const defaultCity = 'Seattle';
 //const defaultTemperature = 62;
 
+//landscaping
+const landscapeDisplay = document.querySelector("#landscape");
+
+
 const skies = [
     // Skies will go here
     // 'cloudy': 'cloud clouds',
 ];
 
 const landscapes = [
-    // Landscape options will go here
-    // 'autumn': 'leaf leaf leaf',
+    "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂",
+    "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷",
+    "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃",
+    "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲"
 ];
 
 const state = {
@@ -82,12 +88,29 @@ const syncWeatherButton = () => {
     }
 };
 
+const syncLandscape = () => {
+    const temp = state.temperature;
+    if (temp >= 80){
+        state.landscape = 0;
+    } else if (temp >= 70){
+        state.landscape = 1;
+    } else if (temp >= 60){
+        state.landscape = 2;
+    } else {
+        state.landscape = 3;
+    }
+    landscapeDisplay.textContent = landscapes[state.landscape];   
+};
+
 const syncDOM = () => {
     cityInput.value = "";
     syncCityName();
     syncTemp();
     syncWeatherButton();
+    syncLandscape();
 };
+
+
 
 const queryWeatherData = (lat, lng) => {
     let params = {
@@ -124,40 +147,30 @@ const initialize = () => {
     const cityDataSuccess = queryCityData();
 };
 
-// Increase temperature
 const increaseTemperature = () => {
     state.temperature++;
     state.invalidated = true;
     syncDOM();
 };
 
-// Decrease temperature
 const decreaseTemperature = () => {
     state.temperature--;
     state.invalidated = true;
     syncDOM();
 };
 
-// Function to select a city
 function selectCity() {
-
-    // Get the city entered by the user
     const newCity = cityInput.value.trim();
 
-    // Check if input is empty
     if (newCity === "") {
         errorMessageBox.textContent = "Please enter a city name!";
         return;
     }
-
-    // Update city name
     // cityName.textContent = '- loading -';
     // queryCityData();
     state.cityName = newCity;
     state.invalidated = true;
     syncDOM();
-
-    // Clear error message
     errorMessageBox.textContent = "";
 }
 
