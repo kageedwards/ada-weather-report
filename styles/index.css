@@ -85,6 +85,7 @@ main.cloudy {
     font-size: 90px;
     /*color: #087eaa;*/
     margin: 20px 0;
+    cursor: pointer;
 }
 
 #temperature small {

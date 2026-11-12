@@ -101,7 +101,7 @@ const syncTemp = () => {
     tempContainer.animate([
         {opacity: 0,},
         {opacity: 1,}
-    ], 1000);
+    ], 500);
     if (state.invalidated) {
         tempContainer.className = 'invalidated'
     } else {
@@ -216,13 +216,13 @@ const initialize = () => {
 };
 
 const increaseTemperature = () => {
-    state.temperature++;
+    state.temperature += (state.unit === 'F') ? 1 / 1.8 : 1;
     state.invalidated = true;
     syncDOM();
 };
 
 const decreaseTemperature = () => {
-    state.temperature--;
+    state.temperature -= (state.unit === 'F') ? 1 / 1.8 : 1;
     state.invalidated = true;
     syncDOM();
 };
@@ -270,8 +270,8 @@ const selectSky = () => {
     syncDOM();
 }
 
-increaseButton.addEventListener("click", increaseTemperature);
-decreaseButton.addEventListener("click", decreaseTemperature);
+increaseButton.addEventListener("mousedown", increaseTemperature);
+decreaseButton.addEventListener("mousedown", decreaseTemperature);
 selectButton.addEventListener("click", selectCity);
 cityInput.addEventListener("keydown", (event) => {
     if (event.key === 'Enter') {
