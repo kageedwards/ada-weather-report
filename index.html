@@ -21,13 +21,18 @@
 		<h2 id="city-name">Seattle</h2>
 	</section>
 	<section id="weather-container">
+		<div id="temperature-container">
+			<h2>
+				<button id="decrease-temperature">&ndash;</button><span id="temperature">62°F</span><button id="increase-temperature">+</button>
+			</h2>
+		</div>
+	</section>
+	<section id="current-weather-section">
+		<button id="get-weather-button">Get Current Weather</button>
+	</section>
+	<section>
 		<div id="sky"></div>
 		<div id="landscape"></div>
-		<div id="temperature-container">
-			<h2 id="temperature">62°F</h2>
-			<button id="decrease-temperature">-</button>
-			<button id="increase-temperature">+</button>
-		</div>
 	</section>
 	<section id="rename-section">
 		<h3>Select City</h3>
@@ -37,9 +42,6 @@
 			placeholder="Enter city name">
 		<button id="select-button">Select</button>
 		<p id="error-message"></p>
-	</section>
-	<section id="current-weather-section">
-		<button id="get-weather-button">Get Current Weather</button>
 	</section>
 	<section id="sky-section">
 		<h3>Choose Sky Type</h3>

@@ -52,10 +52,18 @@ main {
 }
 
 /* Temperature */
-#temp {
+#temperature {
     font-size: 90px;
     color: #087eaa;
     margin: 20px 0;
+}
+
+#temperature-container {
+    vertical-align: center;
+}
+
+.italic {
+    font-style: italic;
 }
 
 /* Sky */
@@ -88,12 +96,18 @@ button {
     font-size: 16px;
     font-family: inherit;
     cursor: pointer;
-    margin: 10px;
+    margin: 0 2em;
     transition: background 0.3s ease;
+    display: inline-block;
+    vertical-align: center;
 }
 
 button:hover {
     background: #07529b;
+}
+
+button.hidden {
+    display: none;
 }
 
 /* Input and dropdown - for upcoming waves */
@@ -127,7 +141,7 @@ footer {
         font-size: 32px;
     }
 
-    #temp {
+    #temperature {
         font-size: 65px;
     }
 
