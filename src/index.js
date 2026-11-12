@@ -82,6 +82,16 @@ function selectCity() {
 selectButton.addEventListener("click", selectCity);
 
 
+//reset city
+const resetButton = document.querySelector("#reset-city-button");
+const defaultCity = "Seattle";
+
+function resetCity() {
+    cityName.textContent = defaultCity;
+    cityInput.value = "";
+    errorMessage.textContent = "";
+}
+resetButton.addEventListener("click", resetCity);
 
 const queryWeatherData = (cityName) => {
 
