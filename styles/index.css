@@ -292,3 +292,13 @@ body.night #reset-section {
         margin: 8px;
     }
 }
+
+/* weather message */
+#weather-message {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px 0 20px;
+    color: #555;
+    text-align: center;
+    font-style: italic;
+}

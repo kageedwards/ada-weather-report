@@ -32,7 +32,6 @@ const increaseButton = document.querySelector("#increase-temperature");
 const decreaseButton = document.querySelector("#decrease-temperature");
 const skyView = document.querySelector("#sky");
 const weatherIcon = document.querySelector("#weather-icon");
-
 const cityInput = document.querySelector("#city-input");
 const selectButton = document.querySelector("#select-button");
 const errorMessageBox = document.querySelector("#error-message");
@@ -41,6 +40,9 @@ const skySelectBox = document.querySelector("#sky-select");
 
 //reset city
 const resetButton = document.querySelector("#reset-city-button");
+
+//weather-message
+const weatherMessage = document.querySelector("#weather-message");
 
 const skies = {
     'clear': '01d',
@@ -107,6 +109,11 @@ const syncTemp = () => {
     } else {
         tempContainer.className = ''
     }
+    // Always use Fahrenheit for choosing the message
+    const tempF = Math.round(
+        convertTemperature(Number.parseFloat(state.temperature), 'F')
+    );
+    syncWeatherMessage(tempF);
 };
 
 const syncWeatherButton = () => {
@@ -173,6 +180,7 @@ const syncDOM = () => {
     syncLandscape();
     syncTempColour();
     syncSky();
+    syncWeatherMessage();
 };
 
 
@@ -269,6 +277,25 @@ const selectSky = () => {
     state.invalidated = true;
     syncDOM();
 }
+
+
+const syncWeatherMessage = () => {
+    const temp = Math.round(convertTemperature(Number(state.temperature), 'F'));
+
+    if (temp >= 80) {
+        weatherMessage.textContent = "Don't forget your sunscreen! ☀️";
+    } else if (temp >= 70) {
+        weatherMessage.textContent = "Keep your sunny G's out! 😎";
+    } else if (temp >= 60) {
+        weatherMessage.textContent = "Perfect weather for a little adventure! 🌼";
+    } else if (temp >= 50) {
+        weatherMessage.textContent = "A little breeze never hurt anyone! 🍃";
+    } else if (temp >= 40) {
+        weatherMessage.textContent = "Time to grab your favorite hoodie! 🧥";
+    } else {
+        weatherMessage.textContent = "It's officially hot cocoa weather! ☕";
+    }
+};
 
 increaseButton.addEventListener("mousedown", increaseTemperature);
 decreaseButton.addEventListener("mousedown", decreaseTemperature);
