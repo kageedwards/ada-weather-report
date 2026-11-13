@@ -147,7 +147,7 @@ main.cloudy {
 button {
     background: #0878c9;
     color: white;
-    border: none;
+    border: 1px solid #054473;
     border-radius: 12px;
     padding: 12px 25px;
     font-size: 16px;
@@ -167,11 +167,15 @@ button.hidden {
     display: none;
 }
 
+#select-button {
+    margin-left: 0;
+}
+
 /* Input and dropdown - for upcoming waves */
 input,
 select {
     padding: 12px;
-    border: 2px solid #b4c5d6;
+    border: 1px solid #7d8893;
     border-radius: 10px;
     font-size: 16px;
     font-family: inherit;
