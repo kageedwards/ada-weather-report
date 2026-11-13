@@ -135,8 +135,8 @@ main.cloudy {
         to bottom,
         /* #8dd8f5, */
         rgba(255,255,255,0),
-        #72bd70,
-        #39964c
+        rgb(114, 189, 112),
+        rgb(57, 150, 76)
     );
     padding: 50px 15px;
     font-size: 45px;
@@ -188,6 +188,37 @@ footer {
     color: white;
     padding: 20px;
     margin-top: 30px;
+}
+
+body.night {
+    /* color: #edc297; */
+    color: #a5a5a5;
+    background: #222244;
+}
+
+body.night #landscape {
+    background: linear-gradient(
+        to bottom,
+        /* #8dd8f5, */
+        rgba(255,255,255,0),
+        rgba(114, 189, 112, 0.25),
+        rgba(57, 150, 76, 0.25)
+    );
+}
+
+body.night #city-name {
+    color: #a5a5a5;
+}
+
+body.night #rename-section,
+body.night #sky-select-section,
+body.night #reset-section {
+    background-color:rgba(8, 126, 170, 0.5);
+}
+
+body.night main {
+    background: rgba(0,0,0,0.15);
+    border-color: #111111;
 }
 
 /* Mobile responsive design */
