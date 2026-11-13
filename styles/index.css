@@ -1,5 +1,6 @@
 
-/* General styling */
+/* ===== GENERAL STYLING ===== */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,19 +8,20 @@
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     background: linear-gradient(
-        to bottom,
-        #56b4eb,
-        #b5e5f7,
-        #dff5ff
+        135deg,
+        #80c9ed,
+        #d9f3ff,
+        #a8ddec
     );
     color: #17324d;
     text-align: center;
 }
 
-/* Header */
+/* ===== HEADER ===== */
+
 header {
     background: #07529b;
     color: white;
@@ -32,59 +34,42 @@ header h1 {
     letter-spacing: 1px;
 }
 
-/* Main weather card */
+/* ===== MAIN WEATHER CARD ===== */
+
 main {
-    width: 80%;
-    max-width: 850px;
-    margin: 50px auto;
+    width: 88%;
+    max-width: 1000px;
+    margin: 30px auto;
     padding: 0;
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid white;
-    border-radius: 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(
+        to bottom,
+        #a9c2e2,
+        #b5c9df
+    );
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 28px;
+    box-shadow: 0 15px 40px rgba(24, 73, 110, 0.2);
     overflow: hidden;
 }
 
-main.cloudy {
-    background-color: #9ac;
+#city-section {
+    padding-top: 35px;
 }
 
-#city-section, #rename-section,
-#sky-select-section, #reset-section {
-    padding-top: 40px;
-}
-
-#rename-section,
-#sky-select-section, #reset-section {
-    background-color: #087eaa;
-}
-
-#rename-section h3,
-#sky-select-section h3 {
-    color: #ffffff;
-}
-
-#rename-section button,
-#reset-section button {
-    filter: invert();
-}
-
-#reset-section {
-    padding-bottom: 40px;
-}
-
-/* City name */
 #city-name {
-    font-size: 42px;
+    font-size: 46px;
+    font-weight: 700;
     margin-bottom: 20px;
     color: #123d68;
+    letter-spacing: 1px;
 }
 
-/* Temperature */
+/* ===== TEMPERATURE ===== */
+
 #temperature {
-    font-size: 90px;
-    /*color: #087eaa;*/
-    margin: 20px 0;
+    font-size: 100px;
+    font-weight: 700;
+    margin: 15px 0;
     cursor: pointer;
 }
 
@@ -102,65 +87,107 @@ main.cloudy {
     font-style: italic;
 }
 
-/* Temperature colors */
 #temperature span.hot {
-    color: red;
+    color: #d94343;
 }
 
 #temperature span.warm {
-    color: orange;
+    color: #ed8b24;
 }
 
 #temperature span.mild {
-    color: goldenrod;
+    color: #b18b17;
 }
 
 #temperature span.cool {
-    color: green;
+    color: #27834c;
 }
 
 #temperature span.cold {
-    color: teal;
+    color: #087eaa;
 }
 
-/* Sky */
+/* ===== WEATHER EMOJI ===== */
+
 #sky {
-    font-size: 45px;
-    padding: 20px;
+    display: block;
+    text-align: center;
+    font-size: 65px;
+    padding: 25px 10px;
+    margin: 15px auto;
+    animation: floatWeather 3s ease-in-out infinite;
 }
 
-/* Landscape */
+@keyframes floatWeather {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ===== LANDSCAPE ===== */
+
 #landscape {
+    text-align: center;
+    font-size: 36px;
+    padding: 45px 10px;
+    margin-top: 10px;
     background: linear-gradient(
         to bottom,
-        /* #8dd8f5, */
-        rgba(255,255,255,0),
-        rgb(114, 189, 112),
-        rgb(57, 150, 76)
+        transparent,
+        #78c477,
+        #399653
     );
-    padding: 50px 15px;
-    font-size: 45px;
-    margin-top: 20px;
 }
 
-/* Buttons - for upcoming waves */
+/* ===== BOTTOM CONTROLS ===== */
+
+#rename-section,
+#sky-select-section,
+#reset-section {
+    background: linear-gradient(
+        135deg,
+        #087eaa,
+        #075b83
+    );
+    padding-top: 30px;
+}
+
+#rename-section h3,
+#sky-select-section h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+#reset-section {
+    padding-bottom: 35px;
+}
+
+/* ===== BUTTONS ===== */
+
 button {
     background: #0878c9;
     color: white;
-    border: 1px solid #054473;
+    border: none;
     border-radius: 12px;
-    padding: 12px 25px;
+    padding: 13px 24px;
     font-size: 16px;
+    font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     margin: 0 2em;
-    transition: background 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease, transform 0.2s ease;
     display: inline-block;
-    vertical-align: center;
 }
 
 button:hover {
-    background: #07529b;
+    background: #f29d38;
+    transform: translateY(-2px);
 }
 
 button.hidden {
@@ -171,18 +198,32 @@ button.hidden {
     margin-left: 0;
 }
 
-/* Input and dropdown - for upcoming waves */
+#rename-section button,
+#reset-section button {
+    filter: invert();
+}
+
+/* ===== INPUT AND DROPDOWN ===== */
+
 input,
 select {
-    padding: 12px;
-    border: 1px solid #7d8893;
-    border-radius: 10px;
+    padding: 13px 16px;
+    border: 2px solid #d6e6ef;
+    border-radius: 12px;
     font-size: 16px;
     font-family: inherit;
     margin: 10px;
+    outline: none;
 }
 
-/* Footer */
+input:focus,
+select:focus {
+    border-color: #f5a742;
+    box-shadow: 0 0 0 3px rgba(245, 167, 66, 0.2);
+}
+
+/* ===== FOOTER ===== */
+
 footer {
     background: #07529b;
     color: white;
@@ -190,59 +231,64 @@ footer {
     margin-top: 30px;
 }
 
+/* ===== NIGHT MODE ===== */
+
 body.night {
-    /* color: #edc297; */
     color: #a5a5a5;
     background: #222244;
 }
 
-body.night #landscape {
-    background: linear-gradient(
-        to bottom,
-        /* #8dd8f5, */
-        rgba(255,255,255,0),
-        rgba(114, 189, 112, 0.25),
-        rgba(57, 150, 76, 0.25)
-    );
+body.night main {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: #111111;
 }
 
 body.night #city-name {
     color: #a5a5a5;
 }
 
+body.night #landscape {
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(114, 189, 112, 0.25),
+        rgba(57, 150, 76, 0.25)
+    );
+}
+
 body.night #rename-section,
 body.night #sky-select-section,
 body.night #reset-section {
-    background-color:rgba(8, 126, 170, 0.5);
+    background-color: rgba(8, 126, 170, 0.5);
 }
 
-body.night main {
-    background: rgba(0,0,0,0.15);
-    border-color: #111111;
-}
+/* ===== MOBILE RESPONSIVE DESIGN ===== */
 
-/* Mobile responsive design */
 @media (max-width: 600px) {
     main {
-        width: 92%;
-        padding: 25px 15px;
-        margin: 25px auto;
+        width: 94%;
+        margin: 20px auto;
     }
 
     #city-name {
-        font-size: 32px;
+        font-size: 34px;
     }
 
     #temperature {
-        font-size: 65px;
+        font-size: 68px;
     }
 
     #sky {
-        font-size: 75px;
+        font-size: 48px;
     }
 
     #landscape {
-        font-size: 30px;
-        padding: 35px 10px;
+        font-size: 25px;
+        padding: 35px 5px;
+        letter-spacing: 0;
+    }
+
+    button {
+        margin: 8px;
     }
 }
