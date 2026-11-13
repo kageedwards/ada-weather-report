@@ -167,6 +167,10 @@ main {
     padding-bottom: 35px;
 }
 
+#error-message {
+    color: white;
+}
+
 /* ===== BUTTONS ===== */
 
 button {

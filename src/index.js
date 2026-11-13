@@ -205,22 +205,34 @@ const queryWeatherData = (lat, lng) => {
 
 const queryCityData = (cityName) => {
     let params = {
-        q: state.cityName
+        q: cityName
     };
+
     return axios.get(API_LOCATION_ENDPOINT, { params })
         .then((resp) => {
             console.log(resp);
+
+            if (!resp.data || resp.data.length === 0) {
+                errorMessageBox.textContent = "City not found! Please try again.";
+                return;
+            }
+
             state.cityLocation.lat = resp.data[0].lat;
             state.cityLocation.lng = resp.data[0].lon;
-            queryWeatherData();
+            state.cityName = resp.data[0].name;
+
+            errorMessageBox.textContent = "";
+
+            return queryWeatherData();
         })
         .catch((err) => {
             console.log(err);
+            errorMessageBox.textContent = "Unable to find this city. Please try again.";
         });
 };
 
 const initialize = () => {
-    const cityDataSuccess = queryCityData();
+    queryCityData(defaultCity);
 };
 
 const increaseTemperature = () => {
@@ -240,7 +252,6 @@ const swapTemperatureUnit = (event) => {
     state.unit = (state.unit === 'F') ? 'C' : 'F';
     syncDOM();
 }
-
 function selectCity() {
     const newCity = cityInput.value.trim();
 
@@ -248,12 +259,8 @@ function selectCity() {
         errorMessageBox.textContent = "Please enter a city name!";
         return;
     }
-    // cityName.textContent = '- loading -';
-    // queryCityData();
-    state.cityName = newCity;
-    state.invalidated = true;
-    syncDOM();
-    errorMessageBox.textContent = "";
+
+    queryCityData(newCity);
 }
 
 function resetCity() {
@@ -305,7 +312,9 @@ cityInput.addEventListener("keydown", (event) => {
         selectCity();
     }
 });
-getWeatherButton.addEventListener("click", queryCityData);
+getWeatherButton.addEventListener("click", () => {
+    queryCityData(state.cityName);
+});
 resetButton.addEventListener("click", resetCity);
 skySelectBox.addEventListener("change", selectSky);
 tempDisplay.addEventListener("mousedown", swapTemperatureUnit);
